@@ -131,7 +131,7 @@ public class QRCodeReaderView extends SurfaceView implements SurfaceHolder.Callb
 	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		Log.d(TAG, "surfaceDestroyed");
-		//mCameraManager.closeDriver();
+		mCameraManager.closeDriver();
 	}
 	
 	// Called when camera take a frame 

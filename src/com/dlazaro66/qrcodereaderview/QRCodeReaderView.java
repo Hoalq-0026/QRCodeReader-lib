@@ -108,6 +108,25 @@ public class QRCodeReaderView extends SurfaceView implements SurfaceHolder.Callb
 	/****************************************************
 	 * SurfaceHolder.Callback,Camera.PreviewCallback
 	 ****************************************************/
+
+	public void createNewSurface(SurfaceHolder holder) {
+		try {
+			// Indicate camera, our View dimensions
+			mCameraManager.openDriver(holder,mPreviewWidth,mPreviewHeight);
+			mCameraManager.getCamera().setDisplayOrientation(90);
+		} catch (IOException e) {
+			Log.w(TAG, "Can not openDriver: "+e.getMessage());
+			mCameraManager.closeDriver();
+		}
+
+		try {
+			mQRCodeReader = new QRCodeReader();
+			mCameraManager.startPreview();
+		} catch (Exception e) {
+			Log.e(TAG, "Exception: " + e.getMessage());
+			mCameraManager.closeDriver();
+		}
+	}
 	
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
